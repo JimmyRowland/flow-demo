@@ -18,14 +18,14 @@ app.get('/', function(request, response) {
     var envName = 'review app'
   }
   let ip;
-  ip = req.headers['x-forwarded-for'];
+  ip = request.headers['x-forwarded-for'];
   if (ip) {
     const list = ip.split(',');
     ip = list[list.length - 1];
   } else {
-    ip = req.connection.remoteAddress;
+    ip = request.connection.remoteAddress;
   }
-  response.status(200).json({env, ip});
+  response.render('index.html', { env: envName, ip});
 });
 
 app.listen(app.get('port'), function() {
