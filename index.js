@@ -17,8 +17,7 @@ app.get('/', function(request, response) {
   } else {
     var envName = 'review app'
   }
-  let ip;
-  ip = request.headers['x-forwarded-for'];
+  let ip =request.headers['x-forwarded-for'];
   if (ip) {
     const list = ip.split(',');
     ip = list[list.length - 1];
