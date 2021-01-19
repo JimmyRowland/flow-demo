@@ -17,7 +17,15 @@ app.get('/', function(request, response) {
   } else {
     var envName = 'review app'
   }
-  response.render('index.html', { env: envName});
+  let ip;
+  ip = req.headers['x-forwarded-for'];
+  if (ip) {
+    const list = ip.split(',');
+    ip = list[list.length - 1];
+  } else {
+    ip = req.connection.remoteAddress;
+  }
+  response.status(200).json({env, ip});
 });
 
 app.listen(app.get('port'), function() {
